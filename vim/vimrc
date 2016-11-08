@@ -109,6 +109,7 @@
         Bundle 'kana/vim-textobj-user'
         Bundle 'kana/vim-textobj-indent'
         Bundle 'gcmt/wildfire.vim'
+        Bundle 'tpope/vim-unimpaired'
     " }
 
     " Writing {
