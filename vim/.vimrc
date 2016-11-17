@@ -557,10 +557,7 @@
         let g:go_highlight_build_constraints = 1
         let g:go_fmt_command = "goimports"
         let g:syntastic_go_checkers = ['gometalinter']
-        let g:syntastic_mode_map = {
-            'mode': 'active',
-            'passive_filetypes': ['go', 'python']
-        }
+        let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python'] }
         au FileType go nmap <Leader>s <Plug>(go-implements)
         au FileType go nmap <Leader>i <Plug>(go-info)
         au FileType go nmap <Leader>e <Plug>(go-rename)
