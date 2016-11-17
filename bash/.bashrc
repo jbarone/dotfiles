@@ -37,7 +37,11 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 source /usr/local/bin/virtualenvwrapper.sh
 
-export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
+export EDITOR='vim'
 
 eval $(thefuck --alias)
 export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+
+if [ -f ~/.bashrc.local ]; then
+    source ~/.bashrc.local
+fi
