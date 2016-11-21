@@ -26,6 +26,19 @@ ensure_tmux_is_running() {
 
 ensure_tmux_is_running
 
+# No arguments: `git status`
+# With arguments: acts like `git`
+g() {
+  if [[ $# > 0 ]]; then
+    git $@
+  else
+    git status -sb
+  fi
+}
+
+# Complete g like git
+__git_complete g __git_main
+
 export GOPATH=$HOME/go
 export PATH=/usr/local/share/python:$PATH:$GOPATH/bin
 

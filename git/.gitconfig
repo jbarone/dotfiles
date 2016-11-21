@@ -21,6 +21,8 @@
 	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
 	standup = log --since '1 day ago' --oneline --author joshua.barone@gmail.com
 	graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+	glog = log -E -i --grep
+	sla = log --oneline --decorate --graph --all
 [merge]
 	tool = vimdiff
 [push]
