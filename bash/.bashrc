@@ -39,12 +39,32 @@ g() {
 # Complete g like git
 __git_complete g __git_main
 
+__prompt_command() {
+    local EXIT="$?"
+
+    local Blue='\[\e[1;36m\]'
+    local Yellow='\[\e[33m\]'
+    local Red='\[\e[1;31m\]'
+    local Green='\[\e[1;32m\]'
+    local Reset='\[\e[0m\]'
+
+    GIT_PS1_SHOWDIRTYSTATE=true
+    GIT_PS1_SHOWUPSTREAM=true
+
+    PS1="${Blue}\u@\h ${Yellow}\w${Red}$(__git_ps1 " %s")\n"
+    if [ $EXIT != 0 ]; then
+        PS1+="${Red}\$"
+    else
+        PS1+="${Green}\$"
+    fi
+
+    PS1+="${Reset} "
+}
+
 export GOPATH=$HOME/go
 export PATH=/usr/local/share/python:$PATH:$GOPATH/bin
 
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWUPSTREAM=true
-export PS1='\[\e[1;36m\]\u@\h \[\e[33m\]\w\[\e[1;31m\]$(__git_ps1 " %s")\n\[\e[1;32m\]\$\[\e[0m\] '
+export PROMPT_COMMAND=__prompt_command
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
