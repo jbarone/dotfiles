@@ -1,16 +1,16 @@
-" Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" Modeline and Notes {{{
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker spell:
 "
 "   This is the personal .vimrc file of Joshua Barone
 "   While much of it is beneficial for general use, I would
 "   recommend picking out the parts you want and understand.
 "
 "   Copyright 2016 Joshua Barone
-" }
+" }}}
 
-" Environment {
+" Environment {{{
 
-    " Identify platform {
+    " Identify platform {{{
         silent function! OSX()
             return has('macunix')
         endfunction
@@ -20,38 +20,38 @@
         silent function! WINDOWS()
             return  (has('win32') || has('win64'))
         endfunction
-    " }
+    " }}}
 
-    " Basics {
+    " Basics {{{
         set nocompatible        " Must be first line
         if !WINDOWS()
             set shell=/bin/sh
         endif
-    " }
+    " }}}
 
-    " Windows Compatible {
+    " Windows Compatible {{{
         " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
         " across (heterogeneous) systems easier.
         if WINDOWS()
           set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
         endif
-    " }
+    " }}}
 
-    " Arrow Key Fix {
+    " Arrow Key Fix {{{
         " https://github.com/spf13/spf13-vim/issues/780
         if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
             inoremap <silent> <C-[>OC <RIGHT>
         endif
-    " }
+    " }}}
 
-    " Setup Bundle Support {
+    " Setup Bundle Support {{{
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype off
         set rtp+=~/.vim/bundle/vundle
         call vundle#rc()
-    " }
+    " }}}
 
-    " Add an UnBundle command {
+    " Add an UnBundle command {{{
     function! UnBundle(arg, ...)
       let bundle = vundle#config#init_bundle(a:arg, a:000)
       call filter(g:vundle#bundles, 'v:val["name_spec"] != "' . a:arg . '"')
@@ -59,13 +59,13 @@
 
     com! -nargs=+         UnBundle
     \ call UnBundle(<args>)
-    " }
+    " }}}
 
-" }
+" }}}
 
 " Bundles {
 
-    " Deps {
+    " Deps {{{
         Bundle 'gmarik/vundle'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         Bundle 'tomtom/tlib_vim'
@@ -78,9 +78,9 @@
         elseif executable('ack')
             Bundle 'mileszs/ack.vim'
         endif
-    " }
+    " }}}
 
-    " General {
+    " General {{{
         Bundle 'scrooloose/nerdtree'
         Bundle 'altercation/vim-colors-solarized'
         Bundle 'spf13/vim-colors'
@@ -110,16 +110,16 @@
         Bundle 'kana/vim-textobj-indent'
         Bundle 'gcmt/wildfire.vim'
         Bundle 'tpope/vim-unimpaired'
-    " }
+    " }}}
 
-    " Writing {
+    " Writing {{{
         Bundle 'reedes/vim-litecorrect'
         Bundle 'reedes/vim-textobj-sentence'
         Bundle 'reedes/vim-textobj-quote'
         Bundle 'reedes/vim-wordy'
-    " }
+    " }}}
 
-    " General Programming {
+    " General Programming {{{
         Bundle 'scrooloose/syntastic'
         Bundle 'tpope/vim-fugitive'
         Bundle 'mattn/webapi-vim'
@@ -134,43 +134,43 @@
         Bundle 'airblade/vim-gitgutter'
         Bundle 'Xuyuanp/nerdtree-git-plugin'
         Bundle 'gregsexton/gitv'
-    " }
+    " }}}
 
-    " Snippets & AutoComplete {
+    " Snippets & AutoComplete {{{
         Bundle 'Shougo/neocomplete.vim.git'
         Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neosnippet-snippets'
         Bundle 'honza/vim-snippets'
-    " }
+    " }}}
 
-    " PHP {
+    " PHP {{{
         Bundle 'spf13/PIV'
         Bundle 'arnaud-lb/vim-php-namespace'
         Bundle 'beyondwords/vim-twig'
-    " }
+    " }}}
 
-    " Python {
+    " Python {{{
         Bundle 'klen/python-mode'
         Bundle 'yssource/python.vim'
         Bundle 'python_match.vim'
         Bundle 'pythoncomplete'
-    " }
+    " }}}
 
-    " Javascript {
+    " Javascript {{{
         Bundle 'elzr/vim-json'
         Bundle 'groenewege/vim-less'
         Bundle 'pangloss/vim-javascript'
         Bundle 'briancollins/vim-jst'
         Bundle 'kchmck/vim-coffee-script'
-    " }
+    " }}}
 
-    " Scala {
+    " Scala {{{
         Bundle 'derekwyatt/vim-scala'
         Bundle 'derekwyatt/vim-sbt'
         Bundle 'xptemplate'
-    " }
+    " }}}
 
-    " Haskell {
+    " Haskell {{{
         Bundle 'travitch/hasksyn'
         Bundle 'dag/vim2hs'
         Bundle 'Twinside/vim-haskellConceal'
@@ -181,39 +181,39 @@
         Bundle 'Shougo/vimproc.vim'
         Bundle 'adinapoli/cumino'
         Bundle 'bitc/vim-hdevtools'
-    " }
+    " }}}
 
-    " HTML {
+    " HTML {{{
         Bundle 'amirh/HTML-AutoCloseTag'
         Bundle 'hail2u/vim-css3-syntax'
         Bundle 'gorodinskiy/vim-coloresque'
         Bundle 'tpope/vim-haml'
         Bundle 'mattn/emmet-vim'
-    " }
+    " }}}
 
-    " Ruby {
+    " Ruby {{{
         Bundle 'tpope/vim-rails'
         let g:rubycomplete_buffer_loading = 1
-    " }
+    " }}}
 
-    " Puppet {
+    " Puppet {{{
         Bundle 'rodjek/vim-puppet'
-    " }
+    " }}}
 
-    " Go Lang {
+    " Go Lang {{{
         Bundle 'fatih/vim-go'
         if executable('impl')
             Bundle 'rhysd/vim-go-impl'
         endif
-    " }
+    " }}}
 
-    " Elixir {
+    " Elixir {{{
         Bundle 'elixir-lang/vim-elixir'
         Bundle 'carlosgaldino/elixir-snippets'
         Bundle 'mattreduce/vim-mix'
-    " }
+    " }}}
 
-    " Misc {
+    " Misc {{{
         Bundle 'rust-lang/rust.vim'
         Bundle 'tpope/vim-markdown'
         Bundle 'spf13/vim-preview'
@@ -221,17 +221,17 @@
         Bundle 'cespare/vim-toml'
         Bundle 'quentindecock/vim-cucumber-align-pipes'
         Bundle 'saltstack/salt-vim'
-    " }
+    " }}}
 
-    " Tmux {
+    " Tmux {{{
         Bundle 'christoomey/vim-tmux-navigator'
         Bundle 'christoomey/vim-tmux-runner'
         Bundle 'keith/tmux.vim'
-    " }
+    " }}}
 
-" }
+" }}}
 
-" General {
+" General {{{
 
     set background=dark         " Assume a dark background
 
@@ -295,7 +295,7 @@
         autocmd BufWinEnter * call ResCur()
     augroup END
 
-    " Setting up the directories {
+    " Setting up the directories {{{
         set backup                  " Backups are nice ...
         if has('persistent_undo')
             set undofile                " So is persistent undo ...
@@ -308,15 +308,15 @@
         let g:skipview_files = [
             \ '\[example pattern\]'
             \ ]
-    " }
+    " }}}
 
     " Map escape for insert mode
     imap jk <Esc>
     imap kj <Esc>
 
-" }
+" }}}
 
-" Vim UI {
+" Vim UI {{{
 
     if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
@@ -374,9 +374,9 @@
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
-" }
+" }}}
 
-" Formatting {
+" Formatting {{{
     set timeout
     set timeoutlen=100
     set encoding=utf8
@@ -415,9 +415,9 @@
     " Workaround broken colour highlighting in Haskell
     autocmd FileType haskell,rust setlocal nospell
 
-" }
+" }}}
 
-" Key (re)Mappings {
+" Key (re)Mappings {{{
     map <C-J> <C-W>j
     map <C-K> <C-W>k
     map <C-L> <C-W>l
@@ -547,11 +547,11 @@
     " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH
     map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
 
-" }
+" }}}
 
-" Plugins {
+" Plugins {{{
 
-    " GoLang {
+    " GoLang {{{
         let g:go_highlight_functions = 1
         let g:go_highlight_methods = 1
         let g:go_highlight_structs = 1
@@ -572,44 +572,43 @@
         au FileType go nmap <leader>co <Plug>(go-coverage)
         au FileType go nmap <leader>ct <Plug>(go-coverage-toogle)
         au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-    " }
+    " }}}
 
-
-    " TextObj Sentence {
+    " TextObj Sentence {{{
         augroup textobj_sentence
           autocmd!
           autocmd FileType markdown call textobj#sentence#init()
           autocmd FileType textile call textobj#sentence#init()
           autocmd FileType text call textobj#sentence#init()
         augroup END
-    " }
+    " }}}
 
-    " TextObj Quote {
+    " TextObj Quote {{{
         augroup textobj_quote
             autocmd!
             autocmd FileType markdown call textobj#quote#init()
             autocmd FileType textile call textobj#quote#init()
             autocmd FileType text call textobj#quote#init({'educate': 0})
         augroup END
-    " }
+    " }}}
 
-    " PIV {
+    " PIV {{{
         if isdirectory(expand("~/.vim/bundle/PIV"))
             let g:DisableAutoPHPFolding = 0
             let g:PIVAutoClose = 0
         endif
-    " }
+    " }}}
 
-    " Misc {
+    " Misc {{{
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
             let g:NERDShutUp=1
         endif
         if isdirectory(expand("~/.vim/bundle/matchit.zip"))
             let b:match_ignorecase = 1
         endif
-    " }
+    " }}}
 
-    " OmniComplete {
+    " OmniComplete {{{
         if has("autocmd") && exists("+omnifunc")
             autocmd Filetype *
                 \if &omnifunc == "" |
@@ -632,9 +631,9 @@
         " Automatically open and close the popup menu / preview window
         au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
         set completeopt=menu,preview,longest
-    " }
+    " }}}
 
-    " Ctags {
+    " Ctags {{{
         set tags=./tags;/,~/.vimtags
 
         " Make tags placed in .git/tags file available in all levels of a repository
@@ -642,20 +641,20 @@
         if gitroot != ''
             let &tags = &tags . ',' . gitroot . '/.git/tags'
         endif
-    " }
+    " }}}
 
-    " AutoCloseTag {
+    " AutoCloseTag {{{
         " Make it so AutoCloseTag works for xml and xhtml files as well
         au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
         nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-    " }
+    " }}}
 
-    " SnipMate {
+    " SnipMate {{{
         " Setting the author var
         let g:snips_author = 'Joshua Barone <joshua.barone@gmail.com>'
-    " }
+    " }}}
 
-    " NerdTree {
+    " NerdTree {{{
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
             map <C-e> <plug>NERDTreeTabsToggle<CR>
             map <leader>e :NERDTreeFind<CR>
@@ -670,9 +669,9 @@
             let NERDTreeKeepTreeInNewTab=1
             let g:nerdtree_tabs_open_on_gui_startup=0
         endif
-    " }
+    " }}}
 
-    " Tabularize {
+    " Tabularize {{{
         if isdirectory(expand("~/.vim/bundle/tabular"))
             nmap <Leader>a& :Tabularize /&<CR>
             vmap <Leader>a& :Tabularize /&<CR>
@@ -691,23 +690,23 @@
             nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
             vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
         endif
-    " }
+    " }}}
 
-    " Session List {
+    " Session List {{{
         set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
         if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
             nmap <leader>sl :SessionList<CR>
             nmap <leader>ss :SessionSave<CR>
             nmap <leader>sc :SessionClose<CR>
         endif
-    " }
+    " }}}
 
-    " JSON {
+    " JSON {{{
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
         let g:vim_json_syntax_conceal = 0
-    " }
+    " }}}
 
-    " PyMode {
+    " PyMode {{{
         " Disable if python support not present
         if !has('python') && !has('python3')
             let g:pymode = 0
@@ -719,9 +718,9 @@
             let g:pymode_options = 0
             let g:pymode_rope = 0
         endif
-    " }
+    " }}}
 
-    " ctrlp {
+    " ctrlp {{{
         if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
             let g:ctrlp_working_path_mode = 'ra'
             nnoremap <silent> <D-t> :CtrlP<CR>
@@ -761,21 +760,21 @@
                 nnoremap <Leader>fu :CtrlPFunky<Cr>
             endif
         endif
-    "}
+    "}}}
 
-    " TagBar {
+    " TagBar {{{
         if isdirectory(expand("~/.vim/bundle/tagbar/"))
             nnoremap <silent> <leader>tt :TagbarToggle<CR>
         endif
-    "}
+    "}}}
 
-    " Rainbow {
+    " Rainbow {{{
         if isdirectory(expand("~/.vim/bundle/rainbow/"))
             let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
         endif
-    "}
+    " }}}
 
-    " Fugitive {
+    " Fugitive {{{
         if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
             nnoremap <silent> <leader>gs :Gstatus<CR>
             nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -790,9 +789,9 @@
             nnoremap <silent> <leader>gi :Git add -p %<CR>
             nnoremap <silent> <leader>gg :SignifyToggle<CR>
         endif
-    "}
+    " }}}
 
-    " neocomplete {
+    " neocomplete {{{
         let g:acp_enableAtStartup = 0
         let g:neocomplete#enable_at_startup = 1
         let g:neocomplete#enable_smart_case = 1
@@ -814,7 +813,7 @@
         endif
         let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-        " Plugin key-mappings {
+        " Plugin key-mappings {{{
             " These two lines conflict with the default digraph mapping of <C-K>
             imap <C-k> <Plug>(neosnippet_expand_or_jump)
             smap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -877,7 +876,7 @@
             endfunction
 
             imap <expr> <Tab> CleverTab()
-        " }
+        " }}}
 
         " Enable heavy omni completion.
         if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -888,9 +887,9 @@
         let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
         let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
         let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-    " }
+    " }}}
 
-    " Snippets {
+    " Snippets {{{
         " Use honza's snippets.
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
@@ -909,7 +908,7 @@
         " When enabled, there can be too much visual noise
         " especially when splits are used.
         set completeopt-=preview
-    " }
+    " }}}
 
     " FIXME: Isn't this for Syntastic to handle?
     " Haskell post write lint and check with ghcmod
@@ -919,30 +918,30 @@
         autocmd BufWritePost *.hs GhcModCheckAndLintAsync
     endif
 
-    " UndoTree {
+    " UndoTree {{{
         if isdirectory(expand("~/.vim/bundle/undotree/"))
             nnoremap <Leader>u :UndotreeToggle<CR>
             " If undotree is opened, it is likely one wants to interact with it.
             let g:undotree_SetFocusWhenToggle=1
         endif
-    " }
+    " }}}
 
-    " indent_guides {
+    " indent_guides {{{
         if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
             let g:indent_guides_start_level = 2
             let g:indent_guides_guide_size = 1
             let g:indent_guides_enable_on_vim_startup = 1
         endif
-    " }
+    " }}}
 
-    " Wildfire {
+    " Wildfire {{{
     let g:wildfire_objects = {
                 \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
                 \ "html,xml" : ["at"],
                 \ }
-    " }
+    " }}}
 
-    " vim-airline {
+    " vim-airline {{{
         " Set configuration options for the statusline plugin vim-airline.
         let g:airline_powerline_fonts=1
         let g:airline_section_c='%<%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#%{bufferline#refresh_status()}%#airline_c#%{g:bufferline_status_info.before}%#bufferline_selected# %{g:bufferline_status_info.current} %#airline_c#%{g:bufferline_status_info.after} %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
@@ -959,11 +958,11 @@
                 let g:airline_right_sep='‹' " Slightly fancier than '<'
             endif
         endif
-    " }
+    " }}}
 
-" }
+" }}}
 
-" GUI Settings {
+" GUI Settings {{{
 
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
@@ -983,11 +982,11 @@
         "set term=builtin_ansi       " Make arrow and other keys work
     endif
 
-" }
+" }}}
 
-" Functions {
+" Functions {{{
 
-    " Initialize directories {
+    " Initialize directories {{{
     function! InitializeDirectories()
         let parent = $HOME
         let prefix = 'vim'
@@ -1019,9 +1018,9 @@
         endfor
     endfunction
     call InitializeDirectories()
-    " }
+    " }}}
 
-    " Initialize NERDTree as needed {
+    " Initialize NERDTree as needed {{{
     function! NERDTreeInitAsNeeded()
         redir => bufoutput
         buffers!
@@ -1033,9 +1032,9 @@
             wincmd l
         endif
     endfunction
-    " }
+    " }}}
 
-    " Strip whitespace {
+    " Strip whitespace {{{
     function! StripTrailingWhitespace()
         " Preparation: save last search, and cursor position.
         let _s=@/
@@ -1047,9 +1046,9 @@
         let @/=_s
         call cursor(l, c)
     endfunction
-    " }
+    " }}}
 
-    " Shell command {
+    " Shell command {{{
     function! s:RunShellCommand(cmdline)
         botright new
 
@@ -1070,46 +1069,48 @@
 
     command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
     " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
-    " }
+    " }}}
 
     function! s:ExpandFilenameAndExecute(command, file)
         execute a:command . " " . expand(a:file, ":p")
     endfunction
-" }
+" }}}
 
-" Automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
+" Misc {{{
+    " Automatically rebalance windows on vim resize
+    autocmd VimResized * :wincmd =
 
-" zoom a vim pane, <C-w>= to rebalance
-nnoremap <leader>- :wincmd _<CR>:wincmd \|<CR>
-nnoremap <leader>= :wincmd =<CR>
+    " zoom a vim pane, <C-w>= to rebalance
+    nnoremap <leader>- :wincmd _<CR>:wincmd \|<CR>
+    nnoremap <leader>= :wincmd =<CR>
 
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+    let g:tagbar_type_go = {
+        \ 'ctagstype' : 'go',
+        \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+        \ },
+        \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+        \ },
+        \ 'ctagsbin'  : 'gotags',
+        \ 'ctagsargs' : '-sort -silent'
+    \ }
 
-noremap <leader><Space> :call StripTrailingWhitespace()<CR>
+    noremap <leader><Space> :call StripTrailingWhitespace()<CR>
+" }}}
