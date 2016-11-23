@@ -349,6 +349,8 @@
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
         set statusline+=%{fugitive#statusline()} " Git Hotness
+        set statusline+=%{go#statusline#Show()}
+
         set statusline+=\ [%{&ff}/%Y]            " Filetype
         set statusline+=\ [%{getcwd()}]          " Current dir
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
@@ -558,6 +560,7 @@
         let g:go_fmt_command = "goimports"
         let g:syntastic_go_checkers = ['gometalinter']
         let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python'] }
+        nmap <leader>xc :SyntasticCheck<CR>
         au FileType go nmap <Leader>s <Plug>(go-implements)
         au FileType go nmap <Leader>i <Plug>(go-info)
         au FileType go nmap <Leader>e <Plug>(go-rename)
@@ -942,6 +945,7 @@
     " vim-airline {
         " Set configuration options for the statusline plugin vim-airline.
         let g:airline_powerline_fonts=1
+        let g:airline_section_c='%<%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#%{bufferline#refresh_status()}%#airline_c#%{g:bufferline_status_info.before}%#bufferline_selected# %{g:bufferline_status_info.current} %#airline_c#%{g:bufferline_status_info.after} %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
