@@ -551,6 +551,10 @@
 
 " Plugins {{{
 
+    " Syntastic {{{
+        let g:syntastic_always_populate_loc_list = 1
+    " }}}
+
     " GoLang {{{
         let g:go_highlight_functions = 1
         let g:go_highlight_methods = 1
