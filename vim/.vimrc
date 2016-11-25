@@ -946,9 +946,9 @@
     " }}}
 
     " vim-airline {{{
+        noremap <silent> <Plug>AirlineTablineRefresh :set mod!<CR>
         " Set configuration options for the statusline plugin vim-airline.
         let g:airline_powerline_fonts=1
-        let g:airline_section_c='%<%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#%{bufferline#refresh_status()}%#airline_c#%{g:bufferline_status_info.before}%#bufferline_selected# %{g:bufferline_status_info.current} %#airline_c#%{g:bufferline_status_info.after} %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
@@ -962,6 +962,10 @@
                 let g:airline_right_sep='‹' " Slightly fancier than '<'
             endif
         endif
+
+        call airline#parts#define_raw('go', '%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#')
+        call airline#parts#define_condition('go', '&filetype=="go"')
+        let g:airline_section_y=airline#section#create_right(['ffenc', 'go'])
     " }}}
 
 " }}}
