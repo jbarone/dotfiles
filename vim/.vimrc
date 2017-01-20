@@ -63,7 +63,7 @@
 
 " }}}
 
-" Bundles {
+" Bundles {{{
 
     " Deps {{{
         Bundle 'gmarik/vundle'
@@ -162,6 +162,8 @@
         Bundle 'pangloss/vim-javascript'
         Bundle 'briancollins/vim-jst'
         Bundle 'kchmck/vim-coffee-script'
+        Bundle 'Slava/vim-spacebars'
+        Bundle 'mxw/vim-jsx'
     " }}}
 
     " Scala {{{
@@ -184,7 +186,7 @@
     " }}}
 
     " HTML {{{
-        Bundle 'amirh/HTML-AutoCloseTag'
+        Bundle 'vim-scripts/HTML-AutoCloseTag'
         Bundle 'hail2u/vim-css3-syntax'
         Bundle 'gorodinskiy/vim-coloresque'
         Bundle 'tpope/vim-haml'
@@ -553,6 +555,12 @@
 
     " Syntastic {{{
         let g:syntastic_always_populate_loc_list = 1
+        let g:syntastic_go_checkers = ['gometalinter']
+        let g:syntastic_mode_map = { 'mode': 'active', 
+                                    \ 'active_filetypes': ['javascript'],
+                                    \ 'passive_filetypes': ['go', 'python'] }
+        let g:syntastic_javascript_checkers = ['eslint']
+        nmap <leader>xc :SyntasticCheck<CR>
     " }}}
 
     " GoLang {{{
@@ -562,9 +570,6 @@
         let g:go_highlight_operators = 1
         let g:go_highlight_build_constraints = 1
         let g:go_fmt_command = "goimports"
-        let g:syntastic_go_checkers = ['gometalinter']
-        let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python'] }
-        nmap <leader>xc :SyntasticCheck<CR>
         au FileType go nmap <Leader>s <Plug>(go-implements)
         au FileType go nmap <Leader>i <Plug>(go-info)
         au FileType go nmap <Leader>e <Plug>(go-rename)
