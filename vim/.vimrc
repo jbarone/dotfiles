@@ -186,7 +186,6 @@
     " }}}
 
     " HTML {{{
-        Bundle 'vim-scripts/HTML-AutoCloseTag'
         Bundle 'hail2u/vim-css3-syntax'
         Bundle 'gorodinskiy/vim-coloresque'
         Bundle 'tpope/vim-haml'
