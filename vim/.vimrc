@@ -141,6 +141,7 @@
         Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neosnippet-snippets'
         Bundle 'honza/vim-snippets'
+        Bundle 'bonsaiben/bootstrap-snippets'
     " }}}
 
     " PHP {{{
@@ -157,13 +158,14 @@
     " }}}
 
     " Javascript {{{
+        Bundle 'mxw/vim-jsx'
         Bundle 'elzr/vim-json'
         Bundle 'groenewege/vim-less'
-        Bundle 'pangloss/vim-javascript'
         Bundle 'briancollins/vim-jst'
         Bundle 'kchmck/vim-coffee-script'
         Bundle 'Slava/vim-spacebars'
-        Bundle 'mxw/vim-jsx'
+        Bundle 'pangloss/vim-javascript'
+        Bundle 'justinj/vim-react-snippets'
     " }}}
 
     " Scala {{{
@@ -408,8 +410,9 @@
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    autocmd BufNewFile,BufRead *.jsx set filetype=javascript
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql,coffee,ruby autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-    autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript setlocal expandtab shiftwidth=2 softtabstop=2
 
     " Workaround vim-commentary for Haskell
     autocmd FileType haskell setlocal commentstring=--\ %s
@@ -580,6 +583,10 @@
         au FileType go nmap <leader>co <Plug>(go-coverage)
         au FileType go nmap <leader>ct <Plug>(go-coverage-toogle)
         au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+        autocmd FileType go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+        autocmd FileType go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+        autocmd FileType go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+        autocmd FileType go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
     " }}}
 
     " TextObj Sentence {{{
@@ -712,6 +719,10 @@
     " JSON {{{
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
         let g:vim_json_syntax_conceal = 0
+    " }}}
+
+    " Javascript {{{
+        let g:jsx_ext_required = 0 " Allow JSX in normal JS files"
     " }}}
 
     " PyMode {{{
