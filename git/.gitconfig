@@ -43,3 +43,5 @@
 	newHighlight = green bold 22
 [github]
 	user = jbarone
+[http "https://gopkg.in"]
+	followRedirects = true
