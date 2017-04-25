@@ -120,7 +120,8 @@
     " }}}
 
     " General Programming {{{
-        Bundle 'scrooloose/syntastic'
+        Bundle 'neomake/neomake'
+        " Bundle 'scrooloose/syntastic'
         Bundle 'tpope/vim-fugitive'
         Bundle 'mattn/webapi-vim'
         Bundle 'mattn/gist-vim'
@@ -169,25 +170,26 @@
     " }}}
 
     " Scala {{{
-        Bundle 'derekwyatt/vim-scala'
-        Bundle 'derekwyatt/vim-sbt'
-        Bundle 'xptemplate'
+        " Bundle 'derekwyatt/vim-scala'
+        " Bundle 'derekwyatt/vim-sbt'
+        " Bundle 'xptemplate'
     " }}}
 
     " Haskell {{{
-        Bundle 'travitch/hasksyn'
-        Bundle 'dag/vim2hs'
-        Bundle 'Twinside/vim-haskellConceal'
-        Bundle 'Twinside/vim-haskellFold'
-        Bundle 'lukerandall/haskellmode-vim'
-        Bundle 'eagletmt/neco-ghc'
-        Bundle 'eagletmt/ghcmod-vim'
-        Bundle 'Shougo/vimproc.vim'
-        Bundle 'adinapoli/cumino'
-        Bundle 'bitc/vim-hdevtools'
+        " Bundle 'travitch/hasksyn'
+        " Bundle 'dag/vim2hs'
+        " Bundle 'Twinside/vim-haskellConceal'
+        " Bundle 'Twinside/vim-haskellFold'
+        " Bundle 'lukerandall/haskellmode-vim'
+        " Bundle 'eagletmt/neco-ghc'
+        " Bundle 'eagletmt/ghcmod-vim'
+        " Bundle 'Shougo/vimproc.vim'
+        " Bundle 'adinapoli/cumino'
+        " Bundle 'bitc/vim-hdevtools'
     " }}}
 
     " HTML {{{
+        Bundle 'HTML-AutoCloseTag'
         Bundle 'hail2u/vim-css3-syntax'
         Bundle 'gorodinskiy/vim-coloresque'
         Bundle 'tpope/vim-haml'
@@ -200,7 +202,7 @@
     " }}}
 
     " Puppet {{{
-        Bundle 'rodjek/vim-puppet'
+        " Bundle 'rodjek/vim-puppet'
     " }}}
 
     " Go Lang {{{
@@ -211,19 +213,19 @@
     " }}}
 
     " Elixir {{{
-        Bundle 'elixir-lang/vim-elixir'
-        Bundle 'carlosgaldino/elixir-snippets'
-        Bundle 'mattreduce/vim-mix'
+        " Bundle 'elixir-lang/vim-elixir'
+        " Bundle 'carlosgaldino/elixir-snippets'
+        " Bundle 'mattreduce/vim-mix'
     " }}}
 
     " Misc {{{
-        Bundle 'rust-lang/rust.vim'
+        " Bundle 'rust-lang/rust.vim'
         Bundle 'tpope/vim-markdown'
         Bundle 'spf13/vim-preview'
         Bundle 'tpope/vim-cucumber'
-        Bundle 'cespare/vim-toml'
         Bundle 'quentindecock/vim-cucumber-align-pipes'
-        Bundle 'saltstack/salt-vim'
+        Bundle 'cespare/vim-toml'
+        " Bundle 'saltstack/salt-vim'
     " }}}
 
     " Tmux {{{
@@ -267,8 +269,8 @@
         endif
     endif
 
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
     " Always switch to the current file directory
+    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
@@ -352,7 +354,7 @@
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
         set statusline+=%{fugitive#statusline()} " Git Hotness
-        set statusline+=%{go#statusline#Show()}
+        set statusline+=%{go#statusline#Show()}  " Go Status
 
         set statusline+=\ [%{&ff}/%Y]            " Filetype
         set statusline+=\ [%{getcwd()}]          " Current dir
@@ -408,9 +410,11 @@
     set splitbelow                  " Puts new split windows to the bottom of the current
     "set matchpairs+=<:>             " Match, to be used with %
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     autocmd BufNewFile,BufRead *.jsx set filetype=javascript
+
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql,coffee,ruby autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType haskell,puppet,ruby,yml,javascript setlocal expandtab shiftwidth=2 softtabstop=2
 
@@ -457,10 +461,12 @@
     noremap 0 :call WrapRelativeMotion("0")<CR>
     noremap <Home> :call WrapRelativeMotion("0")<CR>
     noremap ^ :call WrapRelativeMotion("^")<CR>
+
     " Overwrite the operator pending $/<End> mappings from above
     " to force inclusive motion with :execute normal!
     onoremap $ v:call WrapRelativeMotion("$")<CR>
     onoremap <End> v:call WrapRelativeMotion("$")<CR>
+
     " Overwrite the Visual+select mode mappings from above
     " to ensure the correct vis_sel flag is passed to function
     vnoremap $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
@@ -547,22 +553,28 @@
     " Easier formatting
     nnoremap <silent> <leader>q gwip
 
-    " FIXME: Revert this f70be548
-    " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH
-    map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
-
 " }}}
 
 " Plugins {{{
 
+    " Neomake {{{
+        autocmd! BufWritePost * Neomake
+        let g:neomake_go_gometalinter_args = ['--disable-all',
+                    \ '--enable=gosimple', '--enable=unused',
+                    \ '--enable=misspell', '--enable=staticcheck',
+                    \ '--enable=interfacer', '--enable=deadcode']
+        let g:neomake_serialize = 1
+        let g:neomake_serialize_abort_on_error = 1
+    " }}}
+
     " Syntastic {{{
-        let g:syntastic_always_populate_loc_list = 1
-        let g:syntastic_go_checkers = ['gometalinter']
-        let g:syntastic_mode_map = { 'mode': 'active', 
-                                    \ 'active_filetypes': ['javascript'],
-                                    \ 'passive_filetypes': ['go', 'python'] }
-        let g:syntastic_javascript_checkers = ['eslint']
-        nmap <leader>xc :SyntasticCheck<CR>
+    "     let g:syntastic_always_populate_loc_list = 1
+    "     let g:syntastic_go_checkers = ['gometalinter']
+    "     let g:syntastic_mode_map = { 'mode': 'active', 
+    "                                 \ 'active_filetypes': ['javascript'],
+    "                                 \ 'passive_filetypes': ['go', 'python'] }
+    "     let g:syntastic_javascript_checkers = ['eslint']
+    "     nmap <leader>xc :SyntasticCheck<CR>
     " }}}
 
     " GoLang {{{
@@ -623,31 +635,6 @@
         endif
     " }}}
 
-    " OmniComplete {{{
-        if has("autocmd") && exists("+omnifunc")
-            autocmd Filetype *
-                \if &omnifunc == "" |
-                \setlocal omnifunc=syntaxcomplete#Complete |
-                \endif
-        endif
-
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-        " Some convenient mappings
-        "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-        " Automatically open and close the popup menu / preview window
-        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-        set completeopt=menu,preview,longest
-    " }}}
-
     " Ctags {{{
         set tags=./tags;/,~/.vimtags
 
@@ -660,8 +647,7 @@
 
     " AutoCloseTag {{{
         " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+        au FileType xhtml,xml ru ftplugin/html_autoclosetag.vim
     " }}}
 
     " SnipMate {{{
@@ -810,13 +796,38 @@
         endif
     " }}}
 
+    " OmniComplete {{{
+        if has("autocmd") && exists("+omnifunc")
+            autocmd Filetype *
+                \if &omnifunc == "" |
+                \setlocal omnifunc=syntaxcomplete#Complete |
+                \endif
+        endif
+
+        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+        " Some convenient mappings
+        "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+        " Automatically open and close the popup menu / preview window
+        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        set completeopt=menu,preview,longest
+    " }}}
+
     " neocomplete {{{
         let g:acp_enableAtStartup = 0
         let g:neocomplete#enable_at_startup = 1
         let g:neocomplete#enable_smart_case = 1
         let g:neocomplete#enable_auto_delimiter = 1
         let g:neocomplete#max_list = 15
-        let g:neocomplete#force_overwrite_completefunc = 1
+        " let g:neocomplete#force_overwrite_completefunc = 1
 
 
         " Define dictionary.
@@ -833,79 +844,67 @@
         let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
         " Plugin key-mappings {{{
-            " These two lines conflict with the default digraph mapping of <C-K>
-            imap <C-k> <Plug>(neosnippet_expand_or_jump)
-            smap <C-k> <Plug>(neosnippet_expand_or_jump)
-            " <C-k> Complete Snippet
-            " <C-k> Jump to next snippet point
-            imap <silent><expr><C-k> neosnippet#expandable() ?
-                        \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-                        \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
-            smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
+            inoremap <expr><C-g>        neocomplete#undo_completion()
+            inoremap <expr><C-l>        neocomplete#complete_common_string()
 
-            inoremap <expr><C-g> neocomplete#undo_completion()
-            inoremap <expr><C-l> neocomplete#complete_common_string()
-            "inoremap <expr><CR> neocomplete#complete_common_string()
-
-            " <CR>: close popup
-            " <s-CR>: close popup and save indent.
-            inoremap <expr><s-CR> pumvisible() ? neocomplete#smart_close_popup()."\<CR>" : "\<CR>"
-
-            function! CleverCr()
-                if pumvisible()
-                    if neosnippet#expandable()
-                        let exp = "\<Plug>(neosnippet_expand)"
-                        return exp . neocomplete#smart_close_popup()
-                    else
-                        return neocomplete#smart_close_popup()
-                    endif
-                else
-                    return "\<CR>"
-                endif
+            " <CR>: close popup and save indent.
+            inoremap <silent> <CR <C-r>=<SID>my_cr_function()<CR>
+            function! s:my_cr_function()
+                return (pubvisible() ? "\<C-y>" | "") . "\<CR>"
             endfunction
 
-            " <CR> close popup and save indent or expand snippet
-            imap <expr> <CR> CleverCr()
-            " <C-h>, <BS>: close popup and delete backword char.
-            inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-            inoremap <expr><C-y> neocomplete#smart_close_popup()
             " <TAB>: completion.
-            inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-            inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+            inoremap <expr><TAB> pumvisible() ? "\<C-n>" | "\<TAB>"
 
-            " Courtesy of Matteo Cavalleri
+            " <C-h>, <BS>: close popup and delete backword char.
+            inoremap <expr><C-h> neocomplete#smart_close_popup() . "\<C-h>"
+            inoremap <expr><BS> neocomplete#smart_close_popup() . "\<C-h>"
 
-            function! CleverTab()
-                if pumvisible()
-                    return "\<C-n>"
-                endif
-                let substr = strpart(getline('.'), 0, col('.') - 1)
-                let substr = matchstr(substr, '[^ \t]*$')
-                if strlen(substr) == 0
-                    " nothing to match on empty string
-                    return "\<Tab>"
-                else
-                    " existing text matching
-                    if neosnippet#expandable_or_jumpable()
-                        return "\<Plug>(neosnippet_expand_or_jump)"
-                    else
-                        return neocomplete#start_manual_complete()
-                    endif
-                endif
-            endfunction
+            " Close popup by <Space>.
+            inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
-            imap <expr> <Tab> CleverTab()
+            " Enable omni completion.
+            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
         " }}}
 
-        " Enable heavy omni completion.
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-            let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-        let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+        " Enable heavy omni completion. {{{
+            if !exists('g:neocomplete#sources#omni#input_patterns')
+                let g:neocomplete#sources#omni#input_patterns = {}
+            endif
+            let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+            let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+            let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+            let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+        " }}}
+    " }}}
+
+    " Neosnippet {{{
+        " These two lines conflict with the default digraph mapping of <C-K>
+        imap <C-k> <Plug>(neosnippet_expand_or_jump)
+        smap <C-k> <Plug>(neosnippet_expand_or_jump)
+        xmap <C-k> <Plug>(neosnippet_expand_target)
+
+        " <C-k> Complete Snippet
+        " <C-k> Jump to next snippet point
+        " imap <silent><expr><C-k> neosnippet#expandable() ?
+        "             \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+        "             \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
+        " smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
+
+        " SuperTab like behaviour
+        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        imap <expr><TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ neosnippet#expandable_or_jumpable() ?
+        \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+        smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
     " }}}
 
     " Snippets {{{
@@ -933,9 +932,9 @@
     " Haskell post write lint and check with ghcmod
     " $ `cabal install ghcmod` if missing and ensure
     " ~/.cabal/bin is in your $PATH.
-    if !executable("ghcmod")
-        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-    endif
+    " if !executable("ghcmod")
+    "     autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    " endif
 
     " UndoTree {{{
         if isdirectory(expand("~/.vim/bundle/undotree/"))
