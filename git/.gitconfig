@@ -1,28 +1,25 @@
-[user]
-	email = joshua.barone@gmail.com
-	name = Joshua Barone
 [core]
 	autocrlf = false
 	safecrlf = true
 	pager = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
 	excludesfile = ~/.gitignore_global
 [alias]
-	co = checkout
-	ci = commit
-	st = status -sb
-	br = branch
-	hist = log --pretty=format:\"%h %ad | %s [%an]\" --graph --date=short
-	type = cat-file -t
-	dump = cat-file -p
-	ds = diff --staged
-	dr = "!f() { git remote update; git log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short $1..origin/$1; }; f"
 	amend = commit --amend -C HEAD
-	undo = reset --soft HEAD^
-	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
-	standup = log --since '1 day ago' --oneline --author joshua.barone@gmail.com
-	graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+	br = branch
+	ci = commit
+	co = checkout
+	dr = "!f() { git remote update; git log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short $1..origin/$1; }; f"
+	ds = diff --staged
+	dump = cat-file -p
 	glog = log -E -i --grep
+	graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+	hist = log --pretty=format:\"%h %ad | %s [%an]\" --graph --date=short
+	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
 	sla = log --oneline --decorate --graph --all
+	st = status -sb
+	standup = log --since '1 day ago' --oneline --author joshua.barone@gmail.com
+	type = cat-file -t
+	undo = reset --soft HEAD^
 [merge]
 	tool = vimdiff
 [push]
@@ -41,7 +38,7 @@
 	oldHighlight = red bold 52
 	newNormal = green bold
 	newHighlight = green bold 22
-[github]
-	user = jbarone
 [http "https://gopkg.in"]
 	followRedirects = true
+[include]
+    path = .gitconfig.local

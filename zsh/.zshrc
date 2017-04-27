@@ -2,10 +2,10 @@
 if [ -d "$HOME/bin" ]; then
   PATH="$HOME/bin:$PATH"
 fi
+
 if [ -d "$HOME/.bin" ]; then
   PATH="$HOME/.bin:$PATH"
 fi
-
 
 # First, ensure we're in tmux so that we get into tmux as soon as possible
 # instead of doing it after everything else loads.
@@ -54,8 +54,8 @@ g() {
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-zplug 'mafredri/zsh-async', form:github
-zplug 'sindresorhus/pure', user:pure.zsh, from:github, as:theme
+zplug 'mafredri/zsh-async', from:github
+zplug 'sindresorhus/pure', use:pure.zsh, from:github, as:theme
 zplug 'zsh-users/zsh-syntax-highlighting', defer:3
 zplug 'zsh-users/zsh-completions', defer:3
 
