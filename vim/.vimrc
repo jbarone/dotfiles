@@ -44,21 +44,14 @@
         endif
     " }}}
 
-    " Setup Bundle Support {{{
-        " The next three lines ensure that the ~/.vim/bundle/ system works
+    " Setup MinPac Support {{{
         filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
-    " }}}
+        packadd minpac
+        call minpac#init()
+        call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-    " Add an UnBundle command {{{
-    function! UnBundle(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:vundle#bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnBundle
-    \ call UnBundle(<args>)
+        command! PackUpdate call minpac#update()
+        command! PackClean call minpac#clean()
     " }}}
 
 " }}}
@@ -66,172 +59,170 @@
 " Bundles {{{
 
     " Deps {{{
-        Bundle 'gmarik/vundle'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
+        call minpac#add('MarcWeber/vim-addon-mw-utils')
+        call minpac#add('tomtom/tlib_vim')
         if executable('ag')
-            Bundle 'mileszs/ack.vim'
+            call minpac#add('mileszs/ack.vim')
             let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
         elseif executable('ack-grep')
             let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Bundle 'mileszs/ack.vim'
+            call minpac#add('mileszs/ack.vim')
         elseif executable('ack')
-            Bundle 'mileszs/ack.vim'
+            call minpac#add('mileszs/ack.vim')
         endif
     " }}}
 
     " General {{{
-        Bundle 'scrooloose/nerdtree'
-        Bundle 'altercation/vim-colors-solarized'
-        Bundle 'spf13/vim-colors'
-        Bundle 'tpope/vim-surround'
-        Bundle 'tpope/vim-repeat'
-        Bundle 'rhysd/conflict-marker.vim'
-        Bundle 'jiangmiao/auto-pairs'
-        Bundle 'ctrlpvim/ctrlp.vim'
-        Bundle 'tacahiroy/ctrlp-funky'
-        Bundle 'terryma/vim-multiple-cursors'
-        Bundle 'vim-scripts/sessionman.vim'
-        Bundle 'matchit.zip'
-        Bundle 'vim-airline/vim-airline'
-        Bundle 'vim-airline/vim-airline-themes'
-        Bundle 'powerline/fonts'
-        Bundle 'bling/vim-bufferline'
-        Bundle 'easymotion/vim-easymotion'
-        Bundle 'jistr/vim-nerdtree-tabs'
-        Bundle 'flazz/vim-colorschemes'
-        Bundle 'mbbill/undotree'
-        Bundle 'nathanaelkane/vim-indent-guides'
-        Bundle 'vim-scripts/restore_view.vim'
-        Bundle 'mhinz/vim-signify'
-        Bundle 'tpope/vim-abolish.git'
-        Bundle 'osyo-manga/vim-over'
-        Bundle 'kana/vim-textobj-user'
-        Bundle 'kana/vim-textobj-indent'
-        Bundle 'gcmt/wildfire.vim'
-        Bundle 'tpope/vim-unimpaired'
+        call minpac#add('scrooloose/nerdtree')
+        call minpac#add('altercation/vim-colors-solarized')
+        " call minpac#add('spf13/vim-colors')
+        call minpac#add('tpope/vim-surround')
+        call minpac#add('tpope/vim-repeat')
+        call minpac#add('rhysd/conflict-marker.vim')
+        call minpac#add('jiangmiao/auto-pairs')
+        call minpac#add('ctrlpvim/ctrlp.vim')
+        call minpac#add('tacahiroy/ctrlp-funky')
+        call minpac#add('terryma/vim-multiple-cursors')
+        call minpac#add('vim-scripts/sessionman.vim')
+        call minpac#add('vim-scripts/matchit.zip')
+        call minpac#add('vim-airline/vim-airline')
+        call minpac#add('vim-airline/vim-airline-themes')
+        call minpac#add('powerline/fonts')
+        call minpac#add('bling/vim-bufferline')
+        call minpac#add('easymotion/vim-easymotion')
+        call minpac#add('jistr/vim-nerdtree-tabs')
+        " call minpac#add('flazz/vim-colorschemes')
+        call minpac#add('mbbill/undotree')
+        call minpac#add('nathanaelkane/vim-indent-guides')
+        call minpac#add('vim-scripts/restore_view.vim')
+        call minpac#add('mhinz/vim-signify')
+        call minpac#add('tpope/tpope-vim-abolish')
+        call minpac#add('osyo-manga/vim-over')
+        call minpac#add('kana/vim-textobj-user')
+        call minpac#add('kana/vim-textobj-indent')
+        call minpac#add('gcmt/wildfire.vim')
+        call minpac#add('tpope/vim-unimpaired')
     " }}}
 
     " Writing {{{
-        Bundle 'reedes/vim-litecorrect'
-        Bundle 'reedes/vim-textobj-sentence'
-        Bundle 'reedes/vim-textobj-quote'
-        Bundle 'reedes/vim-wordy'
+        call minpac#add('reedes/vim-litecorrect')
+        call minpac#add('reedes/vim-textobj-sentence')
+        call minpac#add('reedes/vim-textobj-quote')
+        call minpac#add('reedes/vim-wordy')
     " }}}
 
     " General Programming {{{
-        Bundle 'neomake/neomake'
-        " Bundle 'scrooloose/syntastic'
-        Bundle 'tpope/vim-fugitive'
-        Bundle 'mattn/webapi-vim'
-        Bundle 'mattn/gist-vim'
-        Bundle 'scrooloose/nerdcommenter'
-        Bundle 'tpope/vim-commentary'
-        Bundle 'godlygeek/tabular'
-        Bundle 'luochen1990/rainbow'
+        call minpac#add('neomake/neomake')
+        call minpac#add('tpope/vim-fugitive')
+        call minpac#add('mattn/webapi-vim')
+        call minpac#add('mattn/gist-vim')
+        call minpac#add('scrooloose/nerdcommenter')
+        call minpac#add('tpope/vim-commentary')
+        call minpac#add('godlygeek/tabular')
+        call minpac#add('luochen1990/rainbow')
         if executable('ctags')
-            Bundle 'majutsushi/tagbar'
+            call minpac#add('majutsushi/tagbar')
         endif
-        Bundle 'airblade/vim-gitgutter'
-        Bundle 'Xuyuanp/nerdtree-git-plugin'
-        Bundle 'gregsexton/gitv'
+        call minpac#add('airblade/vim-gitgutter')
+        call minpac#add('Xuyuanp/nerdtree-git-plugin')
+        call minpac#add('gregsexton/gitv')
     " }}}
 
     " Snippets & AutoComplete {{{
-        Bundle 'Shougo/neocomplete.vim.git'
-        Bundle 'Shougo/neosnippet'
-        Bundle 'Shougo/neosnippet-snippets'
-        Bundle 'honza/vim-snippets'
-        Bundle 'bonsaiben/bootstrap-snippets'
+        call minpac#add('Shougo/neocomplete.vim')
+        call minpac#add('Shougo/neosnippet')
+        call minpac#add('Shougo/neosnippet-snippets')
+        call minpac#add('honza/vim-snippets')
+        call minpac#add('bonsaiben/bootstrap-snippets')
     " }}}
 
     " PHP {{{
-        Bundle 'spf13/PIV'
-        Bundle 'arnaud-lb/vim-php-namespace'
-        Bundle 'beyondwords/vim-twig'
+        call minpac#add('spf13/PIV')
+        call minpac#add('arnaud-lb/vim-php-namespace')
+        call minpac#add('beyondwords/vim-twig')
     " }}}
 
     " Python {{{
-        Bundle 'klen/python-mode'
-        Bundle 'yssource/python.vim'
-        Bundle 'python_match.vim'
-        Bundle 'pythoncomplete'
+        call minpac#add('klen/python-mode')
+        call minpac#add('yssource/python.vim')
+        call minpac#add('vim-scripts/python_match.vim')
+        call minpac#add('vim-scripts/pythoncomplete')
     " }}}
 
     " Javascript {{{
-        Bundle 'mxw/vim-jsx'
-        Bundle 'elzr/vim-json'
-        Bundle 'groenewege/vim-less'
-        Bundle 'briancollins/vim-jst'
-        Bundle 'kchmck/vim-coffee-script'
-        Bundle 'Slava/vim-spacebars'
-        Bundle 'pangloss/vim-javascript'
-        Bundle 'justinj/vim-react-snippets'
+        call minpac#add('mxw/vim-jsx')
+        call minpac#add('elzr/vim-json')
+        call minpac#add('groenewege/vim-less')
+        call minpac#add('briancollins/vim-jst')
+        call minpac#add('kchmck/vim-coffee-script')
+        call minpac#add('Slava/vim-spacebars')
+        call minpac#add('pangloss/vim-javascript')
+        call minpac#add('justinj/vim-react-snippets')
     " }}}
 
     " Scala {{{
-        " Bundle 'derekwyatt/vim-scala'
-        " Bundle 'derekwyatt/vim-sbt'
-        " Bundle 'xptemplate'
+        " call minpac#add('derekwyatt/vim-scala')
+        " call minpac#add('derekwyatt/vim-sbt')
+        " call minpac#add('xptemplate')
     " }}}
 
     " Haskell {{{
-        " Bundle 'travitch/hasksyn'
-        " Bundle 'dag/vim2hs'
-        " Bundle 'Twinside/vim-haskellConceal'
-        " Bundle 'Twinside/vim-haskellFold'
-        " Bundle 'lukerandall/haskellmode-vim'
-        " Bundle 'eagletmt/neco-ghc'
-        " Bundle 'eagletmt/ghcmod-vim'
-        " Bundle 'Shougo/vimproc.vim'
-        " Bundle 'adinapoli/cumino'
-        " Bundle 'bitc/vim-hdevtools'
+        " call minpac#add('travitch/hasksyn')
+        " call minpac#add('dag/vim2hs')
+        " call minpac#add('Twinside/vim-haskellConceal')
+        " call minpac#add('Twinside/vim-haskellFold')
+        " call minpac#add('lukerandall/haskellmode-vim')
+        " call minpac#add('eagletmt/neco-ghc')
+        " call minpac#add('eagletmt/ghcmod-vim')
+        " call minpac#add('Shougo/vimproc.vim')
+        " call minpac#add('adinapoli/cumino')
+        " call minpac#add('bitc/vim-hdevtools')
     " }}}
 
     " HTML {{{
-        Bundle 'HTML-AutoCloseTag'
-        Bundle 'hail2u/vim-css3-syntax'
-        Bundle 'gorodinskiy/vim-coloresque'
-        Bundle 'tpope/vim-haml'
-        Bundle 'mattn/emmet-vim'
+        call minpac#add('vim-scripts/HTML-AutoCloseTag')
+        call minpac#add('hail2u/vim-css3-syntax')
+        call minpac#add('gorodinskiy/vim-coloresque')
+        call minpac#add('tpope/vim-haml')
+        call minpac#add('mattn/emmet-vim')
     " }}}
 
     " Ruby {{{
-        Bundle 'tpope/vim-rails'
+        call minpac#add('tpope/vim-rails')
         let g:rubycomplete_buffer_loading = 1
     " }}}
 
     " Puppet {{{
-        " Bundle 'rodjek/vim-puppet'
+        " call minpac#add('rodjek/vim-puppet')
     " }}}
 
     " Go Lang {{{
-        Bundle 'fatih/vim-go'
+        call minpac#add('fatih/vim-go')
         if executable('impl')
-            Bundle 'rhysd/vim-go-impl'
+            call minpac#add('rhysd/vim-go-impl')
         endif
     " }}}
 
     " Elixir {{{
-        " Bundle 'elixir-lang/vim-elixir'
-        " Bundle 'carlosgaldino/elixir-snippets'
-        " Bundle 'mattreduce/vim-mix'
+        " call minpac#add('elixir-lang/vim-elixir')
+        " call minpac#add('carlosgaldino/elixir-snippets')
+        " call minpac#add('mattreduce/vim-mix')
     " }}}
 
     " Misc {{{
-        " Bundle 'rust-lang/rust.vim'
-        Bundle 'tpope/vim-markdown'
-        Bundle 'spf13/vim-preview'
-        Bundle 'tpope/vim-cucumber'
-        Bundle 'quentindecock/vim-cucumber-align-pipes'
-        Bundle 'cespare/vim-toml'
-        " Bundle 'saltstack/salt-vim'
+        " call minpac#add('rust-lang/rust.vim')
+        call minpac#add('tpope/vim-markdown')
+        call minpac#add('spf13/vim-preview')
+        " call minpac#add('tpope/vim-cucumber')
+        " call minpac#add('quentindecock/vim-cucumber-align-pipes')
+        call minpac#add('cespare/vim-toml')
+        " call minpac#add('saltstack/salt-vim')
     " }}}
 
     " Tmux {{{
-        Bundle 'christoomey/vim-tmux-navigator'
-        Bundle 'christoomey/vim-tmux-runner'
-        Bundle 'keith/tmux.vim'
+        call minpac#add('christoomey/vim-tmux-navigator')
+        call minpac#add('christoomey/vim-tmux-runner')
+        call minpac#add('keith/tmux.vim')
     " }}}
 
 " }}}
@@ -323,7 +314,7 @@
 
 " Vim UI {{{
 
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    if filereadable(expand("~/.vim/pack/minpac/start/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
@@ -567,16 +558,6 @@
         let g:neomake_serialize_abort_on_error = 1
     " }}}
 
-    " Syntastic {{{
-    "     let g:syntastic_always_populate_loc_list = 1
-    "     let g:syntastic_go_checkers = ['gometalinter']
-    "     let g:syntastic_mode_map = { 'mode': 'active', 
-    "                                 \ 'active_filetypes': ['javascript'],
-    "                                 \ 'passive_filetypes': ['go', 'python'] }
-    "     let g:syntastic_javascript_checkers = ['eslint']
-    "     nmap <leader>xc :SyntasticCheck<CR>
-    " }}}
-
     " GoLang {{{
         let g:go_highlight_functions = 1
         let g:go_highlight_methods = 1
@@ -620,17 +601,17 @@
     " }}}
 
     " PIV {{{
-        if isdirectory(expand("~/.vim/bundle/PIV"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/PIV"))
             let g:DisableAutoPHPFolding = 0
             let g:PIVAutoClose = 0
         endif
     " }}}
 
     " Misc {{{
-        if isdirectory(expand("~/.vim/bundle/nerdtree"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/nerdtree"))
             let g:NERDShutUp=1
         endif
-        if isdirectory(expand("~/.vim/bundle/matchit.zip"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/matchit.zip"))
             let b:match_ignorecase = 1
         endif
     " }}}
@@ -656,7 +637,7 @@
     " }}}
 
     " NerdTree {{{
-        if isdirectory(expand("~/.vim/bundle/nerdtree"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/nerdtree"))
             map <C-e> <plug>NERDTreeTabsToggle<CR>
             map <leader>e :NERDTreeFind<CR>
             nmap <leader>nt :NERDTreeFind<CR>
@@ -673,7 +654,7 @@
     " }}}
 
     " Tabularize {{{
-        if isdirectory(expand("~/.vim/bundle/tabular"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/tabular"))
             nmap <Leader>a& :Tabularize /&<CR>
             vmap <Leader>a& :Tabularize /&<CR>
             nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
@@ -695,7 +676,7 @@
 
     " Session List {{{
         set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/sessionman.vim/"))
             nmap <leader>sl :SessionList<CR>
             nmap <leader>ss :SessionSave<CR>
             nmap <leader>sc :SessionClose<CR>
@@ -717,7 +698,7 @@
             let g:pymode = 0
         endif
 
-        if isdirectory(expand("~/.vim/bundle/python-mode"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/python-mode"))
             let g:pymode_lint_checkers = ['pyflakes']
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options = 0
@@ -726,7 +707,7 @@
     " }}}
 
     " ctrlp {{{
-        if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/ctrlp.vim/"))
             let g:ctrlp_working_path_mode = 'ra'
             nnoremap <silent> <D-t> :CtrlP<CR>
             nnoremap <silent> <D-r> :CtrlPMRU<CR>
@@ -757,7 +738,7 @@
                 \ 'fallback': s:ctrlp_fallback
             \ }
 
-            if isdirectory(expand("~/.vim/bundle/ctrlp-funky/"))
+            if isdirectory(expand("~/.vim/pack/minpac/start/ctrlp-funky/"))
                 " CtrlP extensions
                 let g:ctrlp_extensions = ['funky']
 
@@ -768,19 +749,17 @@
     "}}}
 
     " TagBar {{{
-        if isdirectory(expand("~/.vim/bundle/tagbar/"))
-            nnoremap <silent> <leader>tt :TagbarToggle<CR>
-        endif
+        autocmd VimEnter * if exists(":TagbarToggle") | exe "nnoremap <silent> <leader>tt :TagbarToggle<CR>" | endif
     "}}}
 
     " Rainbow {{{
-        if isdirectory(expand("~/.vim/bundle/rainbow/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/rainbow/"))
             let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
         endif
     " }}}
 
     " Fugitive {{{
-        if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/vim-fugitive/"))
             nnoremap <silent> <leader>gs :Gstatus<CR>
             nnoremap <silent> <leader>gd :Gdiff<CR>
             nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -828,7 +807,6 @@
         let g:neocomplete#enable_auto_delimiter = 1
         let g:neocomplete#max_list = 15
         " let g:neocomplete#force_overwrite_completefunc = 1
-
 
         " Define dictionary.
         let g:neocomplete#sources#dictionary#dictionaries = {
@@ -909,7 +887,7 @@
 
     " Snippets {{{
         " Use honza's snippets.
-        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+        let g:neosnippet#snippets_directory='~/.vim/pack/minpac/start/vim-snippets/snippets'
 
         " Enable neosnippet snipmate compatibility mode
         let g:neosnippet#enable_snipmate_compatibility = 1
@@ -937,7 +915,7 @@
     " endif
 
     " UndoTree {{{
-        if isdirectory(expand("~/.vim/bundle/undotree/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/undotree/"))
             nnoremap <Leader>u :UndotreeToggle<CR>
             " If undotree is opened, it is likely one wants to interact with it.
             let g:undotree_SetFocusWhenToggle=1
@@ -945,7 +923,7 @@
     " }}}
 
     " indent_guides {{{
-        if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/vim-indent-guides/"))
             let g:indent_guides_start_level = 2
             let g:indent_guides_guide_size = 1
             let g:indent_guides_enable_on_vim_startup = 1
@@ -966,7 +944,7 @@
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
-        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+        if isdirectory(expand("~/.vim/pack/minpac/start/vim-airline-themes/"))
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
@@ -977,9 +955,6 @@
             endif
         endif
 
-        call airline#parts#define_raw('go', '%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#')
-        call airline#parts#define_condition('go', '&filetype=="go"')
-        let g:airline_section_y=airline#section#create_right(['ffenc', 'go'])
     " }}}
 
 " }}}
@@ -1096,6 +1071,31 @@
     function! s:ExpandFilenameAndExecute(command, file)
         execute a:command . " " . expand(a:file, ":p")
     endfunction
+
+    function! s:Scratch (command, ...)
+       redir => lines
+       let saveMore = &more
+       set nomore
+       execute a:command
+       redir END
+       let &more = saveMore
+       call feedkeys("\<cr>")
+       new | setlocal buftype=nofile bufhidden=hide noswapfile
+       put=lines
+       if a:0 > 0
+          execute 'vglobal/'.a:1.'/delete'
+       endif
+       if a:command == 'scriptnames'
+          %substitute#^[[:space:]]*[[:digit:]]\+:[[:space:]]*##e
+       endif
+       silent %substitute/\%^\_s*\n\|\_s*\%$
+       let height = line('$') + 3
+       execute 'normal! z'.height."\<cr>"
+       0
+    endfunction
+
+    command! -nargs=? Scriptnames call <sid>Scratch('scriptnames', <f-args>)
+    command! -nargs=+ Scratch call <sid>Scratch(<f-args>)
 " }}}
 
 " Misc {{{
