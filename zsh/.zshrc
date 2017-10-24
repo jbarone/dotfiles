@@ -102,13 +102,6 @@ unsetopt nomatch
 # https://github.com/gabebw/dotfiles/pull/15
 unsetopt multios
 
-export GOPATH=$HOME/go
-export PATH=/usr/local/share/python:$PATH:$GOPATH/bin
-
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/src
-source /usr/local/bin/virtualenvwrapper.sh
-
 export VISUAL='vim'
 eval $(thefuck --alias)
 
@@ -119,6 +112,14 @@ compdef g=git
 
 PURE_CMD_MAX_EXEC_TIME=10
 # }}}
+
+export GOPATH=$HOME/go
+export PATH=/usr/local/opt/python/libexec/bin:/usr/local/bin:/usr/local/sbin:$PATH:$GOPATH/bin
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python/libexec/bin/python
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/src
+source /usr/local/bin/virtualenvwrapper.sh
 
 if [ -f $HOME/.zshrc.local  ]; then
     source $HOME/.zshrc.local
