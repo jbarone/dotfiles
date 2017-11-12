@@ -556,6 +556,9 @@
                     \ '--enable=interfacer', '--enable=deadcode']
         let g:neomake_serialize = 1
         let g:neomake_serialize_abort_on_error = 1
+        let g:neomake_javascript_enabled_makers = ['eslint']
+        let g:neomake_jsx_enabled_makers = ['eslint']
+        let g:jsx_esx_required = 0
     " }}}
 
     " GoLang {{{
