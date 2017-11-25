@@ -79,3 +79,5 @@ export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
 if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
+
+command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell bash)"

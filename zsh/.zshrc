@@ -74,6 +74,7 @@ compinit
 alias ls='ls -FGh'
 alias ll='ls -FGlAhp'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+alias bup='brew update && brew upgrade && brew cleanup'
 # }}}
 
 # Vim-Style key binding
@@ -124,3 +125,5 @@ source /usr/local/bin/virtualenvwrapper.sh
 if [ -f $HOME/.zshrc.local  ]; then
     source $HOME/.zshrc.local
 fi
+
+command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell zsh)"
