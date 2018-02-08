@@ -17,7 +17,7 @@
 	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
 	sla = log --oneline --decorate --graph --all
 	st = status -sb
-	standup = log --since '1 day ago' --oneline --author joshua.barone@gmail.com
+	standup = log --since '1 day ago' --oneline --author !(git config user.email)
 	type = cat-file -t
 	undo = reset --soft HEAD^
 [merge]

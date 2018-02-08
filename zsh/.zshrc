@@ -79,6 +79,7 @@ alias bup='brew update && brew upgrade && brew cleanup'
 
 # Vim-Style key binding
 bindkey -v
+bindkey '^R' history-incremental-search-backward
 
 # Options {{{
 HISTFILE=~/.zsh_history

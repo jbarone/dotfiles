@@ -180,7 +180,8 @@
     " }}}
 
     " HTML {{{
-        call minpac#add('vim-scripts/HTML-AutoCloseTag')
+        " call minpac#add('vim-scripts/HTML-AutoCloseTag')
+        call minpac#add('alvan/vim-closetag')
         call minpac#add('hail2u/vim-css3-syntax')
         call minpac#add('gorodinskiy/vim-coloresque')
         call minpac#add('tpope/vim-haml')
@@ -631,7 +632,10 @@
 
     " AutoCloseTag {{{
         " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html_autoclosetag.vim
+        " au FileType xhtml,xml ru ftplugin/html_autoclosetag.vim
+        let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.md,*.markdown'
+        let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+        let g:closetag_emptyTags_caseSensitive = 1
     " }}}
 
     " SnipMate {{{
