@@ -236,9 +236,6 @@
     endfunction
     noremap <leader>bg :call ToggleBG()<CR>
 
-    let g:python_host_prog = '/usr/bin/python2'
-    let g:python3_host_prog = '/usr/bin/python3'
-
     " if !has('gui')
         "set term=$TERM          " Make arrow and other keys work
     " endif
@@ -746,6 +743,7 @@
         let g:ale_sign_warning = '⚠'
         highlight ALEErrorSign ctermbg=NONE ctermfg=red
         highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+        let g:ale_linters = {'javascript': ['eslint']}
     " }}}
 
     " GoLang {{{
