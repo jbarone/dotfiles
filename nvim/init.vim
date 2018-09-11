@@ -1199,7 +1199,7 @@
         noremap <silent> <Plug>AirlineTablineRefresh :set mod!<CR>
         " Set configuration options for the statusline plugin vim-airline.
         set laststatus=2
-        let g:airline_powerline_fonts=0
+        let g:airline_powerline_fonts = 1
 
         " Enable top tabline.
         let g:airline#extensions#tabline#enabled = 1
@@ -1227,8 +1227,8 @@
         endif
 
         " unicode symbols
-        " let g:airline_left_sep = '▶'
-        " let g:airline_right_sep = '◀'
+        let g:airline_left_sep = ''
+        let g:airline_right_sep = ''
         " let g:airline_symbols.linenr = '␊'
         " let g:airline_symbols.paste = 'ρ'
         " let g:airline_symbols.whitespace = 'Ξ'
