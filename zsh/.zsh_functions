@@ -1,0 +1,62 @@
+# Git shortener
+function g() {
+  if [[ $# -gt 0 ]]; then
+    git "$@"
+  else
+    git status --short --branch
+  fi
+}
+
+compdef g=git
+
+# TMUX launcher
+function tat() {
+  local session_name="${1:-$(basename "$PWD" | tr . -)}"
+  local sessions=( $(tmux list-sessions 2>/dev/null | cut -d ":" -f 1 | grep "^$session_name$") )
+
+  if [ ${#sessions[@]} -gt 0 ]; then
+    # If there is already a session with the same name, attach to it.
+    if [ -z "$TMUX" ]; then
+        tmux attach-session -t "$session_name"
+    else
+        tmux switch-client -t "$session_name"
+    fi
+  else
+    # If there is no existing session, create a new (detached) one.
+    (TMUX='' tmux new-session -Ad -s "$session_name")
+
+    # Try to find a matching code directory.
+    local code_root_dirs=$(echo $CODE_ROOT_DIRS | sed 's/:/ /g')
+    local matching_dirs=( $(find $code_root_dirs -maxdepth 1 -name "$session_name" -type d ) )
+
+    # If there is a matching directory, set it as the default path and jump into the directory.
+    if [ ${#matching_dirs[@]} -gt 0 ]; then
+      local code_dir=${matching_dirs[0]:-$matching_dirs}
+      tmux send-keys -t "$session_name:1" "cd $code_dir && clear" C-m
+
+      # If there is a .tmux file in this directory, execute it.
+      if [ -f "$code_dir/.tmux" ]; then
+        eval "$code_dir/.tmux" $session_name
+      fi
+    fi
+
+    # Finally, attach to the newly created session.
+    if [ -z "$TMUX" ]; then
+        tmux attach-session -t "$session_name"
+    else
+        tmux switch-client -t "$session_name"
+    fi
+  fi
+}
+
+function _tat() {
+  local code_root_dirs=$(echo $CODE_ROOT_DIRS | sed 's/:/ /g')
+
+  # For autocomplete, use both existing sessions as well as directory names.
+  local sessions="$(tmux list-sessions 2>/dev/null | awk -F: '{ print $1 }' | xargs echo)"
+  local directories="$(find $code_root_dirs -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | xargs echo)"
+
+  _arguments "1: :($sessions $directories)"
+}
+
+compdef _tat tat
