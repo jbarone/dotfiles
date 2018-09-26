@@ -1207,6 +1207,7 @@
         " Disable showing tabs in the tabline. This will ensure that the buffers are
         " what is shown in the tabline at all times.
         let g:airline#extensions#tabline#show_tabs = 0
+        let g:airline#extensions#tabline#buffer_nr_show = 1
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
