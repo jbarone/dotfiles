@@ -208,7 +208,7 @@
         " call minpac#add('spf13/vim-preview')
         " call minpac#add('tpope/vim-cucumber')
         " call minpac#add('quentindecock/vim-cucumber-align-pipes')
-        " call minpac#add('cespare/vim-toml')
+        call minpac#add('cespare/vim-toml')
         " call minpac#add('saltstack/salt-vim')
     " }}}
 

@@ -1,7 +1,6 @@
 [core]
 	autocrlf = false
 	safecrlf = true
-	pager = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
 	excludesfile = ~/.gitignore_global
 [alias]
 	amend = commit --amend -C HEAD
