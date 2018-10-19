@@ -152,12 +152,12 @@ if [[ $OSTYPE = (darwin|freebsd)* ]]; then
 
 	# Prefer GNU version, since it respects dircolors.
 	if (( $+commands[gls] )); then
-		alias ls='() { $(whence -p gls) -Ctr --file-type --color=auto $@ }'
+		alias ls='() { $(whence -p gls) -C --file-type --color=auto $@ }'
 	else
-		alias ls='() { $(whence -p ls) -CFtr $@ }'
+		alias ls='() { $(whence -p ls) -CF $@ }'
 	fi
 else
-	alias ls='() { $(whence -p ls) -Ctr --file-type --color=auto $@ }'
+	alias ls='() { $(whence -p ls) -C --file-type --color=auto $@ }'
 fi
 
 # Set editor preference to nvim if available.

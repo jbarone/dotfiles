@@ -194,6 +194,7 @@
             call minpac#add('rhysd/vim-go-impl')
         endif
         call minpac#add('sebdah/vim-delve')
+        call minpac#add('buoto/gotests-vim')
     " }}}
 
     " Elixir {{{
