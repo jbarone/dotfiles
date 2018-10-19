@@ -378,8 +378,12 @@ fi
 zplug load
 
 # set PATH so it includes user's private bin if it exists
-[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.bin" ] && export PATH="$HOME/.bin:$PATH"
+if [ -d "$HOME/bin" ] ; then
+    export PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.bin" ] ; then
+    export PATH="$HOME/.bin:$PATH"
+fi
 
 # Initialize the fuck if available
 if (( $+commands[thefuck] )); then
@@ -387,9 +391,13 @@ if (( $+commands[thefuck] )); then
 fi
 
 # Source defined functions.
-[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
+if [[ -f ~/.zsh_functions ]] ; then
+    source ~/.zsh_functions
+fi
 
-[[ -f $HOME/.zshrc.local  ]] && source $HOME/.zshrc.local
+if [[ -f $HOME/.zshrc.local  ]] ; then
+    source $HOME/.zshrc.local
+fi
 
 # for d in "/share/zsh-completions" "/share/zsh/zsh-site-functions";do
 #   brew_completion=$(brew --prefix 2>/dev/null)$d
