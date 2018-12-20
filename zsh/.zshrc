@@ -128,11 +128,11 @@ unsetopt nomatch
 unsetopt multios
 
 # Set editor preference to nvim if available.
-if (( $+commands[nvim] )); then
-    alias vim='() { $(whence -p nvim) $@ }'
-else
-    alias vim='() { $(whence -p vim) $@ }'
-fi
+# if (( $+commands[nvim] )); then
+#     alias vim='() { $(whence -p nvim) $@ }'
+# else
+#     alias vim='() { $(whence -p vim) $@ }'
+# fi
 
 export VISUAL='vim'
 export GOPATH=$HOME/go
