@@ -64,7 +64,7 @@ if [[ $OSTYPE = (darwin)* ]]; then
 fi
 
 # zplug "plugins/git",               from:oh-my-zsh, if:"(( $+commands[git] ))"
-# zplug "plugins/golang",            from:oh-my-zsh, if:"(( $+commands[go] ))"
+zplug "plugins/golang",            from:oh-my-zsh, if:"(( $+commands[go] ))"
 # zplug "plugins/svn",               from:oh-my-zsh, if:"(( $+commands[svn] ))"
 # zplug "plugins/node",              from:oh-my-zsh, if:"(( $+commands[node] ))"
 # zplug "plugins/npm",               from:oh-my-zsh, if:"(( $+commands[npm] ))"
@@ -72,7 +72,7 @@ fi
 # zplug "plugins/gem",               from:oh-my-zsh, if:"(( $+commands[gem] ))"
 # zplug "plugins/rbenv",             from:oh-my-zsh, if:"(( $+commands[rbenv] ))"
 # zplug "plugins/rvm",               from:oh-my-zsh, if:"(( $+commands[rvm] ))"
-# zplug "plugins/pip",               from:oh-my-zsh, if:"(( $+commands[pip] ))"
+zplug "plugins/pip",               from:oh-my-zsh, if:"(( $+commands[pip] ))"
 # zplug "plugins/sudo",              from:oh-my-zsh, if:"(( $+commands[sudo] ))"
 # zplug "plugins/gpg-agent",         from:oh-my-zsh, if:"(( $+commands[gpg-agent] ))"
 # zplug "plugins/systemd",           from:oh-my-zsh, if:"(( $+commands[systemctl] ))"
@@ -175,7 +175,7 @@ alias lol='ls -FGlAhp'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 
 if [[ $OSTYPE = (darwin)* ]]; then
-    alias bup='brew update && brew upgrade && brew cleanup'
+    alias bup='brew update && brew upgrade; brew cleanup'
 fi
 
 # =============================================================================
